@@ -1,0 +1,453 @@
+{% extends 'base.html.twig' %} {% block content %}
+<div
+  class="d-flex flex-column justify-content-end align-items-center background-picture"
+>
+  <a
+    class="btn button-style mb-4"
+    id="contacts-button"
+    data-bs-toggle="modal"
+    data-bs-target="#oder-modal"
+  >
+    prisijungti
+  </a>
+</div>
+<!-- modal -->
+<div
+  class="modal fade"
+  id="oder-modal"
+  data-bs-backdrop="static"
+  data-bs-keyboard="false"
+  tabindex="-1"
+  aria-labelledby="oder-modalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">užsakymas</h5>
+        <button
+          type="button"
+          class="btn-close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        ></button>
+      </div>
+      <div class="modal-body">
+        <div class="container">
+          <form novalidate id="submit-form-modal">
+            <div class="mb-3 w-100">
+              <label class="form-label">el. paštas</label>
+              <input
+                type="email"
+                class="form-control"
+                id="order-email"
+                aria-describedby="emailHelp"
+                required
+              />
+            </div>
+            <div class="mb-3 w-100">
+              <label class="form-label">Slaptažodis</label>
+              <input
+                type="password"
+                class="form-control"
+                id="client-password"
+                required
+              />
+            </div>
+            <div class="mb-3 w-100">
+              <label class="form-label">Siuntėjas</label>
+              <input
+                type="text"
+                class="form-control"
+                id="order-sender"
+                required
+              />
+            </div>
+            <div class="mb-3 w-100">
+              <label class="form-label">Gavėjas</label>
+              <input
+                type="text"
+                class="form-control"
+                id="order-receiver"
+                required
+              />
+            </div>
+            <div class="mb-3 w-100">
+              <label class="form-label">Krovinio paėmimo vieta</label>
+              <input
+                type="text"
+                class="form-control"
+                id="order-loading-place"
+                required
+              />
+            </div>
+            <div class="mb-3 w-100">
+              <label class="form-label">Krovinio iškrovimo vieta</label>
+              <input
+                type="text"
+                class="form-control"
+                id="order-unloading-place"
+                required
+              />
+            </div>
+            <div class="mb-3 form-check">
+              <input
+                type="checkbox"
+                class="form-check-input"
+                id="check-box"
+                required
+              />
+              <label class="form-check-label" for="check-box">tvirtinu</label>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button
+          type="submit"
+          class="btn button-style mb-3"
+          id="send-order-button"
+        >
+          siųsti
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <section
+    class="row mt-3 d-flex justify-content-center mb-3"
+    id="card-section"
+  >
+    <h1 class="d-flex justify-content-center mb-4">įmonės naujienos</h1>
+    <div class="col-10 col-md-10 col-lg-5 mb-3" id="text-cards">
+      <article class="card border-0">
+        <div class="overlay-container d-flex justify-content-center">
+          <img
+            src="./img_front/card1.jpg"
+            class="img-fluid img-width"
+            alt="."
+          />
+          <div class="overlay-content">
+            <span><a class="hover-link" href="#">Read More</a></span>
+          </div>
+        </div>
+        <div class="card-body">
+          <h3 class="card-title">Blog Title</h3>
+          <span class="span-bold">2022-11-20</span>
+          <p class="card-text">
+            ARTIFICIAL INTELLIGENCE SOLUTIONS SUPPORT QUICK AND FLAWLESS
+            TRANSPORT PLANNING
+          </p>
+        </div>
+      </article>
+      <div class="d-flex justify-content-center mt-3">
+        <a href="#" class="btn button-style">daugiau</a>
+      </div>
+    </div>
+    <div class="col-12 col-md-8 col-lg-5" id="grid-cards">
+      <div class="showcase-grid" id="grid">
+        <article class="card">
+          <div class="overlay-container">
+            <img src="./img_front/card2.jpg" alt="." class="card-img-top" />
+            <div class="overlay-content">
+              <a class="hover-link" href="#">Read More</a>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Blog Title</h5>
+            <span class="span-bold">2022-11-20</span>
+            <p class="card-text card">
+              Some quick example text that will be seen in our blog article part
+            </p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="overlay-container">
+            <img src="./img_front/card3.jpg" alt="." class="card-img-top" />
+            <div class="overlay-content">
+              <a class="hover-link" href="#">Read More</a>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Blog Title</h5>
+            <span class="span-bold">2022-11-20</span>
+            <p class="card-text card">
+              Some quick example text that will be seen in our blog article part
+            </p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="overlay-container">
+            <img src="./img_front/card4.jpg" alt="." class="card-img-top" />
+            <div class="overlay-content">
+              <a class="hover-link" href="#">Read More</a>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Blog Title</h5>
+            <span class="span-bold">2022-11-20</span>
+            <p class="card-text card">
+              Some quick example text that will be seen in our blog article part
+            </p>
+          </div>
+        </article>
+        <article class="card">
+          <div class="overlay-container">
+            <img src="./img_front/card5.png" alt="." class="card-img-top" />
+            <div class="overlay-content">
+              <a class="hover-link" href="#">Read More</a>
+            </div>
+          </div>
+          <div class="card-body">
+            <h5 class="card-title">Blog Title</h5>
+            <span class="span-bold">2022-11-20</span>
+            <p class="card-text card">
+              Some quick example text that will be seen in our blog article part
+            </p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+</div>
+<hr />
+<div class="container">
+  <section class="row mt-3">
+    <h1 class="d-flex justify-content-center mb-4">apie mus</h1>
+    <div
+      class="d-flex justify-content-center carousel slide container-fluid"
+      id="carousel-slide"
+      data-bs-ride="carousel"
+    >
+      <div
+        class="col-12 col-md-9 col-lg-7 col-xl-6 col-xxl-5 mb-3 d-flex justify-content-center"
+        id="about-us"
+      >
+        <div class="carousel-inner">
+          <div class="carousel-item active">
+            <img
+              src="./img_front/portrait1.jpg"
+              class="h-auto w-100 img-fluid"
+              alt="..."
+            />
+            <div class="carousel-caption">
+              <h5>CEO</h5>
+              <p>
+                Some representative placeholder content for the first slide.
+              </p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img
+              src="./img_front/portrait2.jpg"
+              class="h-auto w-100 img-fluid"
+              alt="..."
+            />
+            <div class="carousel-caption">
+              <h5>COO</h5>
+              <p>
+                Some representative placeholder content for the second slide.
+              </p>
+            </div>
+          </div>
+          <div class="carousel-item">
+            <img
+              src="./img_front/portrait3.jpg"
+              class="h-auto w-100 img-fluid"
+              alt="..."
+            />
+            <div class="carousel-caption">
+              <h5>CFO</h5>
+              <p>
+                Some representative placeholder content for the third slide.
+              </p>
+            </div>
+          </div>
+          <div class="carousel-indicators">
+            <button
+              type="button"
+              data-bs-target="#carousel-slide"
+              data-bs-slide-to="0"
+              class="active"
+              aria-current="true"
+              aria-label="Slide 1"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#carousel-slide"
+              data-bs-slide-to="1"
+              aria-label="Slide 2"
+            ></button>
+            <button
+              type="button"
+              data-bs-target="#carousel-slide"
+              data-bs-slide-to="2"
+              aria-label="Slide 3"
+            ></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<hr />
+<div class="container-box row">
+  <div class="box-color col-12 col-md-6 col-xxl-3 hover-over-box">
+    <div class="box-text d-flex justify-content-end">
+      <img class="logo-2-height" src="./img_front/house-icon.png" />
+    </div>
+    <div
+      class="box-text d-flex justify-content-center align-items-center text-size"
+      id="counter-house"
+    >
+      0000000
+    </div>
+    <div class="box-text d-flex justify-content-end align-items-end text-size">
+      įmonių grupėje
+    </div>
+  </div>
+  <div class="box-color2 col-12 col-md-6 col-xxl-3 hover-over-box">
+    <div class="box-text d-flex justify-content-end">
+      <img class="logo-2-height" src="./img_front/people-logo.png" />
+    </div>
+    <div
+      class="box-text d-flex justify-content-center align-items-center text-size"
+      id="counter-people"
+    >
+      0000000
+    </div>
+    <div class="box-text d-flex justify-content-end align-items-end text-size">
+      darbuotojų komandoje
+    </div>
+  </div>
+  <div class="box-color col-12 col-md-6 col-xxl-3 hover-over-box">
+    <div class="box-text d-flex justify-content-end">
+      <img class="logo-2-height" src="./img_front/trophy-icon.png" />
+    </div>
+    <div
+      class="box-text d-flex justify-content-center align-items-center text-size"
+      id="counter-trophy"
+    >
+      0000000
+    </div>
+    <div class="box-text d-flex justify-content-end align-items-end text-size">
+      Metų patirtis
+    </div>
+  </div>
+  <div class="box-color2 col-12 col-md-6 col-xxl-3 hover-over-box">
+    <div class="box-text d-flex justify-content-end">
+      <img class="logo-2-height" src="./img_front/truck-icon.png" />
+    </div>
+    <div
+      class="box-text d-flex justify-content-center align-items-center text-size"
+      id="counter-lorry"
+    >
+      0000000
+    </div>
+    <div class="box-text d-flex justify-content-end align-items-end text-size">
+      krovinių per 2022 metus
+    </div>
+  </div>
+</div>
+<hr />
+<div class="container">
+  <section class="row" id="contact-form">
+    <div
+      class="col-12 col-md-12 col-lg-6 d-flex flex-column justify-content-start align-items-start mt-3"
+    >
+      <h1>Tapkite mūsų klientu</h1>
+      <h5>parašykite mums</h5>
+      <div class="col w-100">
+        <form novalidate id="submit-form">
+          <div class="form-floating mb-3">
+            <input
+              type="text"
+              id="name-form"
+              class="form-control"
+              placeholder="jūsų vardas"
+              required
+            />
+            <label for="text">jūsų vardas</label>
+            <div class="invalid-feedback">įveskite savo vardą</div>
+          </div>
+          <div class="form-floating mb-3">
+            <input
+              type="email"
+              id="email"
+              class="form-control"
+              placeholder="el. paštas"
+              required
+            />
+            <label for="email">el. paštas</label>
+            <div class="invalid-feedback">neteisingas el. Paštas</div>
+          </div>
+          <div class="form-floating">
+            <textarea
+              type="text"
+              id="order-text"
+              placeholder="Jūsų Užklausa"
+              class="form-control t-area-style"
+              required
+            ></textarea>
+            <label for="text">jūsų užklausa</label>
+            <div class="invalid-feedback">įveskite savo užklausą</div>
+            <div id="order-form" class="form-text">
+              Tikslias užsakymo vykdymo sąlygas pateiksime per 1 d.d. nuo jūsų
+              užklausos pateikimo
+            </div>
+          </div>
+          <button
+            type="button"
+            class="btn button-style mt-3 mb-3"
+            id="submit-form-button"
+          >
+            išsiųsti
+          </button>
+        </form>
+        <div class="visually-hidden" role="alert" id="registraton-success">
+          <svg
+            class="bi flex-shrink-0 me-2"
+            width="24"
+            height="24"
+            role="img"
+            aria-label="Success:"
+          >
+            <use xlink:href="#check-circle-fill" />
+          </svg>
+          <div>jūsų užklausa priimta</div>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="alert"
+            aria-label="Close"
+          ></button>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 col-md-12 col-lg-6 mt-3">
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7307.417338514619!2d23.276562006340047!3d55.91179587712224!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46e5e3be5ed20d6d%3A0x87aa8a13b5b55f54!2sMcDonald&#39;s!5e0!3m2!1slt!2slt!4v1669403829675!5m2!1slt!2slt"
+        width="100%"
+        height="450px"
+        style="border: 0"
+        allowfullscreen=""
+        loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"
+      ></iframe>
+    </div>
+  </section>
+</div>
+<hr />
+<div class="container">
+  <section class="row" id="social-media">
+    <div class="col-12 d-flex justify-content-center">
+      <a href="#" class="fa fa-facebook mx-3"></a>
+      <a href="#" class="fa fa-twitter mx-3"></a>
+      <a href="#" class="fa fa-linkedin mx-3"></a>
+    </div>
+  </section>
+</div>
+<hr />
+{% endblock %}

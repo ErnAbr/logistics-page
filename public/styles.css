@@ -1,0 +1,218 @@
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap");
+body {
+  font-family: "Rubik", sans-serif;
+  font-size: medium;
+  background-color: #b3b3b3;
+  margin: 0;
+  text-transform: uppercase;
+}
+.nav-style {
+  background-color: #dd1b3c;
+}
+.nav-link,
+.navbar-brand,
+h1,
+h2,
+h5,
+p {
+  color: white !important;
+}
+.box {
+  height: 25px;
+  width: 25px;
+}
+.box-logo {
+  width: 67px;
+  height: 57px;
+}
+.logo-2-height {
+  margin-top: 15px;
+  height: 95px;
+}
+li:hover {
+  transform: translateY(-0.5px) scale(1.05);
+}
+.background-picture {
+  background-image: url(./img_front/volvo.jpg);
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 400px;
+}
+.button-style {
+  height: 45px;
+  width: 165px;
+  color: white !important;
+  background-color: #dd1b3c;
+  border-radius: 7px;
+  text-transform: uppercase;
+  padding-top: 9px;
+  border: 2px ridge gold;
+}
+.button-style:hover {
+  background-color: #515d6b;
+  border: 2px ridge gold;
+}
+.showcase-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: 7px;
+}
+.card-img-top {
+  height: 175px;
+  width: 100%;
+}
+.card {
+  background-color: #474749;
+  color: white;
+  border: none;
+}
+.card-text-small {
+  font-size: x-small;
+}
+.text-size {
+  font-size: large;
+}
+.overlay-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  border: 0px solid;
+}
+.overlay-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #b3b3b3;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.overlay-container:hover .overlay-content {
+  opacity: 0.7;
+  transition: opacity 300ms ease-in-out;
+}
+.hover-link {
+  text-decoration: none;
+  color: black;
+  background-color: transparent;
+  padding: 10px 10px 10px 10px;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+.hover-link:hover {
+  color: #dd1b3c;
+}
+.img-width {
+  width: 100%;
+}
+
+.box-color {
+  background-color: #474749;
+  /* border: 1px solid black; */
+  height: 345px;
+}
+.box-color2 {
+  background-color: #1d1e20;
+  /* border: 1px solid black; */
+  height: 345px;
+}
+.container-box {
+  width: 100.6%;
+  opacity: 0.6;
+}
+.hover-over-box:hover {
+  /* transition: 500ms; */
+  opacity: 1.1;
+  background-color: #171625;
+}
+.box-text {
+  width: 100%;
+  height: 115px;
+  border: 0px solid black;
+  display: flex;
+  color: white;
+}
+.form-style {
+  border: none;
+  background-color: rgb(218, 218, 218);
+}
+.form-style:focus {
+  border: none;
+  background-color: rgb(218, 218, 218);
+}
+.t-area-style {
+  resize: none;
+  height: 150px !important;
+}
+
+.fa {
+  padding: 20px;
+  font-size: 30px;
+  width: 75px;
+  text-align: center;
+  text-decoration: none;
+}
+.fa:hover {
+  opacity: 0.95;
+  color: #125688;
+}
+.fa-facebook {
+  background: #3b5998;
+  color: white;
+}
+.fa-twitter {
+  background: #55acee;
+  color: white;
+}
+.fa-linkedin {
+  background: #007bb5;
+  color: white;
+}
+.footer-link {
+  color: white;
+  text-align: start;
+}
+.footer-link:hover {
+  color: #212529;
+}
+.footer-link:link {
+  text-decoration: none;
+}
+.footer-link:visited {
+  text-decoration: none;
+}
+
+/* @media (min-width: 576px) {
+  body::before {
+    content: "SM";
+  }
+}
+
+@media (min-width: 768px) {
+  body::before {
+    content: "MD";
+  }
+}
+
+@media (min-width: 992px) {
+  body::before {
+    content: "LG";
+  }
+}
+
+@media (min-width: 1200px) {
+  body::before {
+    content: "XL";
+  }
+}
+
+@media (min-width: 1400px) {
+  body::before {
+    content: "XXL";
+  }
+} */
