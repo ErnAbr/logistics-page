@@ -315,7 +315,7 @@
       <h1>Tapkite mūsų klientu</h1>
       <h5>parašykite mums</h5>
       <div class="col w-100">
-        <form novalidate id="submit-form">
+        <form novalidate id="submit-form" method="post">
           <div class="form-floating mb-3">
             <input
               type="text"
@@ -323,6 +323,7 @@
               class="form-control"
               placeholder="jūsų vardas"
               required
+              name="client-name"
             />
             <label for="text">jūsų vardas</label>
             <div class="invalid-feedback">įveskite savo vardą</div>
@@ -334,6 +335,7 @@
               class="form-control"
               placeholder="el. paštas"
               required
+              name="client-email"
             />
             <label for="email">el. paštas</label>
             <div class="invalid-feedback">neteisingas el. Paštas</div>
@@ -345,6 +347,7 @@
               placeholder="Jūsų Užklausa"
               class="form-control t-area-style"
               required
+              name="client-message"
             ></textarea>
             <label for="text">jūsų užklausa</label>
             <div class="invalid-feedback">įveskite savo užklausą</div>
@@ -354,7 +357,8 @@
             </div>
           </div>
           <button
-            type="button"
+            type="submit"
+            value="submit"
             class="btn button-style mt-3 mb-3"
             id="submit-form-button"
           >
