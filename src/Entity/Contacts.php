@@ -2,12 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\KontaktaiRepository;
+use App\Repository\ContactsRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity(repositoryClass: KontaktaiRepository::class)]
-class Kontaktai
+#[ORM\Entity(repositoryClass: ContactsRepository::class)]
+class Contacts
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

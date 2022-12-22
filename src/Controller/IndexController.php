@@ -6,7 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
-use App\Entity\Kontaktai;
+use App\Entity\Contacts;
 
 class IndexController extends AbstractController
 {
@@ -15,16 +15,17 @@ class IndexController extends AbstractController
     {
 
         $request = Request::createFromGlobals();
+        $clientName = $request->request->get('client-name');
+        $clientEmail = $request->request->get('client-email');
+        $message = $request->request->get('client-message');
+
+        var_dump($clientName);
+        var_dump($clientEmail);
+        var_dump($message);
+
 
         if ($request->isMethod('POST')) {
-
-            $clientName = $request->request->get('client-name');
-            $clientEmail = $request->request->get('client-email');
-            $message = $request->request->get('client-message');
-            var_dump($clientName);
-            var_dump($clientEmail);
-            var_dump($message);
-            $contact = new Kontaktai();
+            $contact = new Contacts();
 
             $contact->setEmail($clientEmail);
             $contact->setName($clientName);
@@ -35,7 +36,6 @@ class IndexController extends AbstractController
             $manager->persist($contact); // pridedam $contact objektą į sąrašą queriu kuriuos mes vykdysim
 
             $manager->flush(); // mes įvykdom visus querius.
-
         }
         return $this->render('index.html.twig');
     }

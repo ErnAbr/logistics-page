@@ -315,7 +315,12 @@
       <h1>Tapkite mūsų klientu</h1>
       <h5>parašykite mums</h5>
       <div class="col w-100">
-        <form novalidate id="submit-form" method="post">
+        <form
+          novalidate
+          id="submit-form"
+          method="post"
+          action="{{ path('home') }}"
+        >
           <div class="form-floating mb-3">
             <input
               type="text"
@@ -356,14 +361,12 @@
               užklausos pateikimo
             </div>
           </div>
-          <button
+          <input
             type="submit"
-            value="submit"
+            value="išsiųsti"
             class="btn button-style mt-3 mb-3"
             id="submit-form-button"
-          >
-            išsiųsti
-          </button>
+          />
         </form>
         <div class="visually-hidden" role="alert" id="registraton-success">
           <svg
