@@ -25,6 +25,22 @@ class IndexController extends AbstractController
 
 
         if ($request->isMethod('POST')) {
+
+            $error = null;
+            if (!$clientName || !$clientEmail || !$message) {
+                $error = 'būtina užpildyti visus laukus';
+            }
+
+            if (!str_contains($clientEmail, "@")) {
+                $error = 'įveskite tinkamą el. pašto adresą';
+            }
+
+            if ($error) {
+                return $this->render('index.html.twig', [
+                    'error' => $error
+                ]);
+            }
+
             $contact = new Contacts();
 
             $contact->setEmail($clientEmail);
@@ -36,6 +52,10 @@ class IndexController extends AbstractController
             $manager->persist($contact); // pridedam $contact objektą į sąrašą queriu kuriuos mes vykdysim
 
             $manager->flush(); // mes įvykdom visus querius.
+
+            return $this->render('index.html.twig', [
+                'success' => true
+            ]);
         }
         return $this->render('index.html.twig');
     }
