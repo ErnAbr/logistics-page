@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %} {% block content %}
+<div class="container">
+  <h2 class="d-flex justify-content-center mt-3">Admin Page</h2>
+
+  <section class="row mt-3">
+    <div class="col-12 col-md-6 col-xl-5" id="order-page-admin">
+      {% for contact in contacts %}
+      <article class="card border-0 mt-2">
+        <div class="card-body">
+          <ul class="list-group">
+            <li class="list-group-item mt-1">
+              Contact name: {{ contact.name }}
+            </li>
+            <li class="list-group-item mt-1">
+              Contact email: {{ contact.email }}
+            </li>
+            <li class="list-group-item mt-1">
+              Contact query: {{ contact.message }}
+            </li>
+            <div class="d-flex justify-content-end mt-2">
+              <button class="btn btn-primary mx-2">Reply</button>
+              <a href="{{ path('delete_contact') }}" class="btn btn-danger"
+                >Delete</a
+              >
+            </div>
+          </ul>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </section>
+</div>
+{% endblock %}

@@ -78,5 +78,30 @@ class IndexController extends AbstractController
         return $this->render('careers.html.twig');
     }
 
+    #[Route('/admin', name: 'admin')]
+    function admin(ManagerRegistry $doctrine)
+    {
+        $contactRepository = $doctrine->getManager()->getRepository(Contacts::class);
+        $contacts = $contactRepository->findAll();
+
+        return $this->render('admin.html.twig', [
+            'contacts' => $contacts
+        ]);
+    }
+
+    #[Route('/admin/{id}', name: 'delete_contact')]
+    function deleteQuery(ManagerRegistry $doctrine, $id)
+    {
+        $contactRepository = $doctrine->getManager()->getRepository(Contacts::class);
+        $contacts = $contactRepository->findOneBy(['id' => $id]);
+
+        $em = $doctrine->getManager();
+        $em->remove($contacts);
+        $em->flush();
+
+        return $this->render('admin.html.twig', [
+            'contacts' => $contacts
+        ]);
+    }
 
 }

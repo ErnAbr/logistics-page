@@ -29,9 +29,9 @@ p {
   margin-top: 15px;
   height: 95px;
 }
-li:hover {
+/* li:hover {
   transform: translateY(-0.5px) scale(1.05);
-}
+} */
 .background-picture {
   background-image: url(./img_front/volvo.jpg);
   background-position: 50% 50%;
