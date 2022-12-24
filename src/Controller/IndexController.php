@@ -93,11 +93,13 @@ class IndexController extends AbstractController
     function deleteQuery(ManagerRegistry $doctrine, $id)
     {
         $contactRepository = $doctrine->getManager()->getRepository(Contacts::class);
-        $contacts = $contactRepository->findOneBy(['id' => $id]);
+        $contactsDelete = $contactRepository->findOneBy(['id' => $id]);
 
         $em = $doctrine->getManager();
-        $em->remove($contacts);
+        $em->remove($contactsDelete);
         $em->flush();
+
+        $contacts = $contactRepository->findAll();
 
         return $this->render('admin.html.twig', [
             'contacts' => $contacts
