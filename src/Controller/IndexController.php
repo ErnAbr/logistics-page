@@ -5,8 +5,10 @@ namespace App\Controller;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Contacts;
+use App\Entity\Blog;
 
 class IndexController extends AbstractController
 {
@@ -18,11 +20,6 @@ class IndexController extends AbstractController
         $clientName = $request->request->get('client-name');
         $clientEmail = $request->request->get('client-email');
         $message = $request->request->get('client-message');
-
-        var_dump($clientName);
-        var_dump($clientEmail);
-        var_dump($message);
-
 
         if ($request->isMethod('POST')) {
 
@@ -58,6 +55,24 @@ class IndexController extends AbstractController
             ]);
         }
         return $this->render('index.html.twig');
+    }
+
+    #[Route('/create-blog-post', name: 'create_blog')]
+    function createBlog(ManagerRegistry $doctrine)
+    {
+        $blog = new Blog();
+
+        $blog->setTitle('New title');
+        $blog->setSlug('some-slug');
+        $blog->setContent('Some content');
+        $blog->setDate(date('Y-M-D'));
+
+        $manager = $doctrine->getManager();
+
+        $manager->persist($blog);
+        $manager->flush();
+
+        return new Response(true);
     }
 
     #[Route('/about-us', name: 'about-us')]
