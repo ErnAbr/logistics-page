@@ -363,6 +363,7 @@
             id="submit-form-button"
           />
         </form>
+
         {% if error is defined %}
         <div
           class="alert alert-dismissible alert-danger d-flex align-items-center"
@@ -389,7 +390,10 @@
             aria-label="Close"
           ></button>
         </div>
-        {% endif %} {% if success is defined %}
+        <script>
+          window.scrollTo(0, 5000);
+        </script>
+        {% endif %} {% if app.flashes('success')[0] is defined %}
         <div
           class="alert alert-dismissible alert-success d-flex align-items-center"
           role="alert"
@@ -412,6 +416,9 @@
             aria-label="Close"
           ></button>
         </div>
+        <script>
+          window.scrollTo(0, 5000);
+        </script>
         {% endif %}
       </div>
     </div>

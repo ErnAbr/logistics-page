@@ -19,11 +19,6 @@ class IndexController extends AbstractController
         $clientEmail = $request->request->get('client-email');
         $message = $request->request->get('client-message');
 
-        var_dump($clientName);
-        var_dump($clientEmail);
-        var_dump($message);
-
-
         if ($request->isMethod('POST')) {
 
             $error = null;
@@ -53,9 +48,10 @@ class IndexController extends AbstractController
 
             $manager->flush(); // mes įvykdom visus querius.
 
-            return $this->render('index.html.twig', [
-                'success' => true
-            ]);
+            $this->addFlash('success', true);
+
+
+            return $this->redirectToRoute('home');
         }
         return $this->render('index.html.twig');
     }
