@@ -76,6 +76,7 @@
     id="card-section"
   >
     <h1 class="d-flex justify-content-center mb-4">įmonės naujienos</h1>
+
     <div class="col-10 col-md-10 col-lg-5 mb-3" id="text-cards">
       <article class="card border-0">
         <div class="overlay-container d-flex justify-content-center">
@@ -85,7 +86,13 @@
             alt="."
           />
           <div class="overlay-content">
-            <span><a class="hover-link" href="#">Read More</a></span>
+            <span
+              ><a
+                class="hover-link"
+                href="{{ path('blog_posts', { slug: 1 }) }}"
+                >Read More</a
+              ></span
+            >
           </div>
         </div>
         <div class="card-body">
@@ -101,13 +108,16 @@
         <a href="#" class="btn button-style">daugiau</a>
       </div>
     </div>
+
     <div class="col-12 col-md-8 col-lg-5" id="grid-cards">
       <div class="showcase-grid" id="grid">
         <article class="card">
           <div class="overlay-container">
             <img src="./img_front/card2.jpg" alt="." class="card-img-top" />
             <div class="overlay-content">
-              <a class="hover-link" href="#">Read More</a>
+              <a class="hover-link" href="{{ path('blog_posts', { slug: 2 }) }}"
+                >Read More</a
+              >
             </div>
           </div>
           <div class="card-body">
@@ -122,7 +132,9 @@
           <div class="overlay-container">
             <img src="./img_front/card3.jpg" alt="." class="card-img-top" />
             <div class="overlay-content">
-              <a class="hover-link" href="#">Read More</a>
+              <a class="hover-link" href="{{ path('blog_posts', { slug: 3 }) }}"
+                >Read More</a
+              >
             </div>
           </div>
           <div class="card-body">
@@ -137,7 +149,9 @@
           <div class="overlay-container">
             <img src="./img_front/card4.jpg" alt="." class="card-img-top" />
             <div class="overlay-content">
-              <a class="hover-link" href="#">Read More</a>
+              <a class="hover-link" href="{{ path('blog_posts', { slug: 4 }) }}"
+                >Read More</a
+              >
             </div>
           </div>
           <div class="card-body">
@@ -150,9 +164,11 @@
         </article>
         <article class="card">
           <div class="overlay-container">
-            <img src="./img_front/card5.png" alt="." class="card-img-top" />
+            <img src="./img_front/card5.jpg" alt="." class="card-img-top" />
             <div class="overlay-content">
-              <a class="hover-link" href="#">Read More</a>
+              <a class="hover-link" href="{{ path('blog_posts', { slug: 5 }) }}"
+                >Read More</a
+              >
             </div>
           </div>
           <div class="card-body">

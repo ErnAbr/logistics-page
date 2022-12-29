@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Contacts;
+use App\Entity\Blog;
 
 class IndexController extends AbstractController
 {
@@ -18,6 +19,7 @@ class IndexController extends AbstractController
         $clientName = $request->request->get('client-name');
         $clientEmail = $request->request->get('client-email');
         $message = $request->request->get('client-message');
+
 
         if ($request->isMethod('POST')) {
 
@@ -53,8 +55,11 @@ class IndexController extends AbstractController
 
             return $this->redirectToRoute('home');
         }
+
         return $this->render('index.html.twig');
     }
+
+
 
     #[Route('/about-us', name: 'about-us')]
     function aboutUs()
@@ -85,7 +90,7 @@ class IndexController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/{id}', name: 'delete_contact')]
+    #[Route('/admin/deleted-{id}', name: 'delete_contact')]
     function deleteQuery(ManagerRegistry $doctrine, $id)
     {
         $contactRepository = $doctrine->getManager()->getRepository(Contacts::class);
@@ -99,6 +104,16 @@ class IndexController extends AbstractController
 
         return $this->render('admin.html.twig', [
             'contacts' => $contacts
+        ]);
+    }
+
+    #[Route('/blog-post-{slug}', name: 'blog_posts')]
+    function blogPosts(ManagerRegistry $doctrine, $slug)
+    {
+        $blogRepository = $doctrine->getManager()->getRepository(Blog::class);
+        $blogs = $blogRepository->findOneBy(['slug' => $slug]);
+        return $this->render('newsBlog.html.twig', [
+            'blogs' => $blogs
         ]);
     }
 

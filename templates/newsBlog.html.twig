@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %} {% block content %}
+
+<div class="container d-flex flex-column align-items-center mt-5">
+  <div class="col-12 col-md-12 col-xl-6">
+    <article class="card border-0">
+      <div
+        class="overlay-container d-flex justify-content-center"
+        style="height: 470px"
+      >
+        <img
+          src="./img_front/card{{ blogs.slug }}.jpg"
+          class="img-fluid"
+          alt="."
+        />
+      </div>
+      <div class="card-body">
+        <h4 class="card-title">{{ blogs.title }}</h4>
+        <p class="text-wrap mt-3">
+          {{ blogs.content }}
+        </p>
+        <span class="span-bold d-flex justify-content-end">{{
+          blogs.date
+        }}</span>
+      </div>
+    </article>
+    <div class="d-flex justify-content-center">
+      <a class="btn button-style mt-3" href="{{ path('home') }}">home</a>
+    </div>
+  </div>
+  {# {{ dump(blogs) }} {{ dump(blogs.slug) }} #}
+</div>
+<footer>
+  <hr />
+  {% include 'footer.html.twig' %}
+</footer>
+{% endblock %}
