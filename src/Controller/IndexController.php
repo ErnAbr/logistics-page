@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Contacts;
 use App\Entity\Blog;
+use Doctrine\DBAL\Types\VarDateTimeImmutableType;
 
 class IndexController extends AbstractController
 {
@@ -84,9 +85,40 @@ class IndexController extends AbstractController
     {
         $contactRepository = $doctrine->getManager()->getRepository(Contacts::class);
         $contacts = $contactRepository->findAll();
+        $blogRepository = $doctrine->getManager()->getRepository(Blog::class);
+
+        $request = Request::createFromGlobals();
+        $articleSlug = $request->request->get('article-slug');
+        $articleTitle = $request->request->get('article-title');
+        $articleDate = $request->request->get('article-date');
+        $articleText = $request->request->get('article-text');
+
+        if ($request->isMethod('POST')) {
+
+            $blog = $blogRepository->findOneBy(['slug' => $articleSlug]);
+
+            $em = $doctrine->getManager();
+            $em->remove($blog);
+            $em->flush();
+
+            $blogs = new Blog();
+            $blogs->setTitle($articleTitle);
+            $blogs->setDate($articleDate);
+            $blogs->setContent($articleText);
+            $blogs->setSlug($articleSlug);
+
+            $em->persist($blogs);
+            $em->flush();
+
+            $this->addFlash('success', true);
+
+            return $this->redirectToRoute('admin');
+
+        }
 
         return $this->render('admin.html.twig', [
-            'contacts' => $contacts
+            'contacts' => $contacts,
+
         ]);
     }
 
@@ -102,9 +134,7 @@ class IndexController extends AbstractController
 
         $contacts = $contactRepository->findAll();
 
-        return $this->render('admin.html.twig', [
-            'contacts' => $contacts
-        ]);
+        return $this->redirectToRoute('admin');
     }
 
     #[Route('/blog-post-{slug}', name: 'blog_posts')]
