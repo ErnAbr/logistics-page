@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Contacts;
 use App\Entity\Blog;
-use Doctrine\DBAL\Types\VarDateTimeImmutableType;
 
 class IndexController extends AbstractController
 {
@@ -59,8 +58,6 @@ class IndexController extends AbstractController
 
         return $this->render('index.html.twig');
     }
-
-
 
     #[Route('/about-us', name: 'about-us')]
     function aboutUs()
