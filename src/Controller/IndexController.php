@@ -6,11 +6,15 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
+use Symfony\Component\HttpFoundation\Response;
+use Twig\Environment;
+use App\Classes\Uploader;
 use App\Entity\Contacts;
 use App\Entity\Blog;
 
 class IndexController extends AbstractController
 {
+
     #[Route('/', name: 'home')]
     function homepage(ManagerRegistry $doctrine)
     {
@@ -112,9 +116,13 @@ class IndexController extends AbstractController
             return $this->redirectToRoute('admin');
 
         }
+        $upload = new Blog();
+        $form = $this->createForm(Uploader::class, $upload);
+
 
         return $this->render('admin.html.twig', [
             'contacts' => $contacts,
+            'upload_form' => $form->createView()
 
         ]);
     }
@@ -129,7 +137,7 @@ class IndexController extends AbstractController
         $em->remove($contactsDelete);
         $em->flush();
 
-        $contacts = $contactRepository->findAll();
+        // $contacts = $contactRepository->findAll();
 
         return $this->redirectToRoute('admin');
     }

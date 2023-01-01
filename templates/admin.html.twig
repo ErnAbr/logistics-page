@@ -75,12 +75,18 @@
           type="text"
           id="blog-text"
           placeholder="Straipsnis"
-          class="form-control t-area-style"
+          class="form-control t-area-style mb-3"
           required
           name="article-text"
         ></textarea>
         <label for="text">Straipsnis</label>
       </div>
+      {#
+      <div class="d-flex flex-column">
+        {{ form(upload_form) }}
+      </div>
+      #}
+
       <input
         type="submit"
         value="Atnaujinti"
@@ -117,4 +123,6 @@
     {% endif %}
   </section>
 </div>
+<hr />
+<footer>{% include 'footer.html.twig' %}</footer>
 {% endblock %}
