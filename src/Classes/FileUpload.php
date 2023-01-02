@@ -17,9 +17,9 @@ class Uploader extends AbstractType
 
         $builder
 
-            ->add('my_file', FileType::class, [
+            ->add('image', FileType::class, [
                 'mapped' => false,
-                'label' => 'įkelkite blogo paveikslėlį jpg formatu'
+                'required' => false
             ]);
 
 

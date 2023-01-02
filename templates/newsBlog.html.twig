@@ -7,11 +7,7 @@
         class="overlay-container d-flex justify-content-center"
         style="height: 470px"
       >
-        <img
-          src="./img_front/card{{ blogs.slug }}.jpg"
-          class="img-fluid"
-          alt="."
-        />
+        <img src="/img_front/{{ blogs.imagename }}" class="img-fluid" alt="." />
       </div>
       <div class="card-body">
         <h4 class="card-title">{{ blogs.title }}</h4>
@@ -27,7 +23,7 @@
       <a class="btn button-style mt-3" href="{{ path('home') }}">home</a>
     </div>
   </div>
-  {# {{ dump(blogs) }} {{ dump(blogs.slug) }} #}
+  {# {{ dump(blogs) }} {{ dump(blogs.imagename) }} #}
 </div>
 <footer>
   <hr />

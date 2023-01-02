@@ -3,14 +3,17 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\HttpFoundation\Response;
-use Twig\Environment;
-use App\Classes\Uploader;
 use App\Entity\Contacts;
 use App\Entity\Blog;
+
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+
+use App\Classes\Uploader;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class IndexController extends AbstractController
 {
@@ -24,6 +27,8 @@ class IndexController extends AbstractController
         $clientEmail = $request->request->get('client-email');
         $message = $request->request->get('client-message');
 
+        $blogRepository = $doctrine->getManager()->getRepository(Blog::class);
+        $blogs = $blogRepository->findAll();
 
         if ($request->isMethod('POST')) {
 
@@ -50,9 +55,9 @@ class IndexController extends AbstractController
 
             $manager = $doctrine->getManager();
 
-            $manager->persist($contact); // pridedam $contact objektą į sąrašą queriu kuriuos mes vykdysim
+            $manager->persist($contact);
 
-            $manager->flush(); // mes įvykdom visus querius.
+            $manager->flush();
 
             $this->addFlash('success', true);
 
@@ -60,7 +65,9 @@ class IndexController extends AbstractController
             return $this->redirectToRoute('home');
         }
 
-        return $this->render('index.html.twig');
+        return $this->render('index.html.twig', [
+            'blogs' => $blogs
+        ]);
     }
 
     #[Route('/about-us', name: 'about-us')]
@@ -82,10 +89,12 @@ class IndexController extends AbstractController
     }
 
     #[Route('/admin', name: 'admin')]
-    function admin(ManagerRegistry $doctrine)
+    function admin(ManagerRegistry $doctrine, SluggerInterface $slugger)
     {
         $contactRepository = $doctrine->getManager()->getRepository(Contacts::class);
         $contacts = $contactRepository->findAll();
+        $blogs = new Blog();
+
         $blogRepository = $doctrine->getManager()->getRepository(Blog::class);
 
         $request = Request::createFromGlobals();
@@ -93,8 +102,14 @@ class IndexController extends AbstractController
         $articleTitle = $request->request->get('article-title');
         $articleDate = $request->request->get('article-date');
         $articleText = $request->request->get('article-text');
+        $articleImage = $request->request->get('article-image');
+
+        $articleImageFile = $request->files->get('article-image');
 
         if ($request->isMethod('POST')) {
+
+            // var_dump($articleImageFile);
+            // die;
 
             $blog = $blogRepository->findOneBy(['slug' => $articleSlug]);
 
@@ -102,12 +117,11 @@ class IndexController extends AbstractController
             $em->remove($blog);
             $em->flush();
 
-            $blogs = new Blog();
             $blogs->setTitle($articleTitle);
             $blogs->setDate($articleDate);
             $blogs->setContent($articleText);
             $blogs->setSlug($articleSlug);
-
+            $blogs->setImageName($articleImage);
             $em->persist($blogs);
             $em->flush();
 
@@ -116,14 +130,9 @@ class IndexController extends AbstractController
             return $this->redirectToRoute('admin');
 
         }
-        $upload = new Blog();
-        $form = $this->createForm(Uploader::class, $upload);
-
 
         return $this->render('admin.html.twig', [
             'contacts' => $contacts,
-            'upload_form' => $form->createView()
-
         ]);
     }
 
@@ -136,8 +145,6 @@ class IndexController extends AbstractController
         $em = $doctrine->getManager();
         $em->remove($contactsDelete);
         $em->flush();
-
-        // $contacts = $contactRepository->findAll();
 
         return $this->redirectToRoute('admin');
     }

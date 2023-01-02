@@ -26,21 +26,10 @@ class Blog
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    #[ORM\Column(length: 255)]
+    private ?string $imageName = null;
 
-    // #[ORM\Column(type: 'string')]
-    // private $blogImage;
 
-    // public function getBlogImage()
-    // {
-    //     return $this->blogImage;
-    // }
-
-    // public function setBlogImage($blogImage)
-    // {
-    //     $this->blogImage = $blogImage;
-
-    //     return $this;
-    // }
 
     public function getId(): ?int
     {
@@ -94,4 +83,17 @@ class Blog
 
         return $this;
     }
+
+    public function getImageName(): ?string
+    {
+        return $this->imageName;
+    }
+
+    public function setImageName(string $imageName): self
+    {
+        $this->imageName = $imageName;
+
+        return $this;
+    }
+
 }
