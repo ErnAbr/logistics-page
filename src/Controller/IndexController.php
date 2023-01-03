@@ -7,9 +7,8 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Contacts;
 use App\Entity\Blog;
-
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
+// use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 use App\Classes\Uploader;
 use Symfony\Component\Routing\Annotation\Route;
@@ -92,24 +91,28 @@ class IndexController extends AbstractController
     function admin(ManagerRegistry $doctrine, SluggerInterface $slugger)
     {
         $contactRepository = $doctrine->getManager()->getRepository(Contacts::class);
+        $blogRepository = $doctrine->getManager()->getRepository(Blog::class);
         $contacts = $contactRepository->findAll();
         $blogs = new Blog();
-
-        $blogRepository = $doctrine->getManager()->getRepository(Blog::class);
-
         $request = Request::createFromGlobals();
         $articleSlug = $request->request->get('article-slug');
         $articleTitle = $request->request->get('article-title');
         $articleDate = $request->request->get('article-date');
         $articleText = $request->request->get('article-text');
-        $articleImage = $request->request->get('article-image');
-
         $articleImageFile = $request->files->get('article-image');
+
 
         if ($request->isMethod('POST')) {
 
-            // var_dump($articleImageFile);
-            // die;
+            $originalFilename = pathinfo($articleImageFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = $originalFilename . '.' . $articleImageFile->guessExtension();
+
+
+            $upload_directory = $this->getParameter('images_directory');
+            $articleImageFile->move(
+                $upload_directory,
+                $newFilename
+            );
 
             $blog = $blogRepository->findOneBy(['slug' => $articleSlug]);
 
@@ -121,7 +124,7 @@ class IndexController extends AbstractController
             $blogs->setDate($articleDate);
             $blogs->setContent($articleText);
             $blogs->setSlug($articleSlug);
-            $blogs->setImageName($articleImage);
+            $blogs->setImageName($newFilename);
             $em->persist($blogs);
             $em->flush();
 
