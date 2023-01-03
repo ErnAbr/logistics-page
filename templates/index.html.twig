@@ -104,15 +104,15 @@
           </p>
         </div>
       </article>
-      {% endif %} {% endfor %}
+
       <div class="d-flex justify-content-center mt-3">
         <a href="#" class="btn button-style">daugiau</a>
       </div>
     </div>
-
+    {% endif %} {% endfor %}
     <div class="col-12 col-md-8 col-lg-5" id="grid-cards">
       <div class="showcase-grid" id="grid">
-        {% for blog in blogs %} {% if blog.slug > 1 %}
+        {% for blog in blogs %} {% for i in 2..5 %} {% if blog.slug == i %}
         <article class="card">
           <div class="overlay-container">
             <img
@@ -136,7 +136,8 @@
             </p>
           </div>
         </article>
-        {% endif %}{% endfor %}
+
+        {% endif %} {% endfor %}{% endfor %}
       </div>
     </div>
   </section>

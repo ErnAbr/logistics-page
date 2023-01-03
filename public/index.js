@@ -2,10 +2,10 @@ const form = document.getElementById("submit-form");
 const formModal = document.getElementById("submit-form-modal");
 
 function formValidation(event) {
-  if (form.checkValidity()) {
+  if (!form.checkValidity()) {
     event.preventDefault();
   }
-  form.classList.add("was-validated");
+  // form.classList.add("was-validated");
 }
 
 function formValidationModal(event) {

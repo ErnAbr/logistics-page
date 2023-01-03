@@ -10,24 +10,27 @@ use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Validator\Constraints\File;
 
-class Uploader extends AbstractType
+class BlogSorter
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    var $id, $title, $content, $date, $slug, $imagename;
+    public function blogSorter($data)
     {
-
-        $builder
-
-            ->add('image', FileType::class, [
-                'mapped' => false,
-                'required' => false
-            ]);
-
-
+        $this->id = $data['id'];
+        $this->title = $data['title'];
+        $this->content = $data['content'];
+        $this->date = $data['date'];
+        $this->slug = $data['slug'];
+        $this->imagename = $data['imagename'];
     }
-    public function configureOptions(OptionsResolver $resolver)
+
+    function data2Object($data)
     {
-        $resolver->setDefaults([
-            'data_class' => Blog::class,
-        ]);
+        $class_object = new BlogSorter($data);
+        return $class_object;
+    }
+
+    function comparator($object1, $object2)
+    {
+        return $object1->slug > $object2->slug;
     }
 }

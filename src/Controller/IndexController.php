@@ -8,11 +8,13 @@ use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Contacts;
 use App\Entity\Blog;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-// use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-use App\Classes\Uploader;
-use Symfony\Component\Routing\Annotation\Route;
+use App\Classes\BlogSorter;
+
 use Symfony\Component\String\Slugger\SluggerInterface;
+
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class IndexController extends AbstractController
 {
@@ -29,6 +31,9 @@ class IndexController extends AbstractController
         $blogRepository = $doctrine->getManager()->getRepository(Blog::class);
         $blogs = $blogRepository->findAll();
 
+        // echo "<pre>";
+        // var_dump($blogs);
+
         if ($request->isMethod('POST')) {
 
             $error = null;
@@ -42,26 +47,27 @@ class IndexController extends AbstractController
 
             if ($error) {
                 return $this->render('index.html.twig', [
-                    'error' => $error
+                    'error' => $error,
+                    'blogs' => $blogs
                 ]);
+            } else {
+
+                $contact = new Contacts();
+
+                $contact->setEmail($clientEmail);
+                $contact->setName($clientName);
+                $contact->setMessage($message);
+
+                $manager = $doctrine->getManager();
+
+                $manager->persist($contact);
+
+                $manager->flush();
+
+                $this->addFlash('success', true);
+
+                return $this->redirectToRoute('home');
             }
-
-            $contact = new Contacts();
-
-            $contact->setEmail($clientEmail);
-            $contact->setName($clientName);
-            $contact->setMessage($message);
-
-            $manager = $doctrine->getManager();
-
-            $manager->persist($contact);
-
-            $manager->flush();
-
-            $this->addFlash('success', true);
-
-
-            return $this->redirectToRoute('home');
         }
 
         return $this->render('index.html.twig', [
