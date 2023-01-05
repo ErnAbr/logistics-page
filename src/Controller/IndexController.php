@@ -7,12 +7,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Contacts;
 use App\Entity\Blog;
+
+use Doctrine\ORM\Query\ResultSetMapping;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
-
 use App\Classes\BlogSorter;
-
 use Symfony\Component\String\Slugger\SluggerInterface;
-
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
@@ -94,12 +93,13 @@ class IndexController extends AbstractController
     }
 
     #[Route('/admin', name: 'admin')]
-    function admin(ManagerRegistry $doctrine, SluggerInterface $slugger)
+    function admin(ManagerRegistry $doctrine)
     {
         $contactRepository = $doctrine->getManager()->getRepository(Contacts::class);
         $blogRepository = $doctrine->getManager()->getRepository(Blog::class);
+
         $contacts = $contactRepository->findAll();
-        $blogs = new Blog();
+
         $request = Request::createFromGlobals();
         $articleSlug = $request->request->get('article-slug');
         $articleTitle = $request->request->get('article-title');
@@ -109,6 +109,8 @@ class IndexController extends AbstractController
 
 
         if ($request->isMethod('POST')) {
+
+            $blogs = new Blog();
 
             $originalFilename = pathinfo($articleImageFile->getClientOriginalName(), PATHINFO_FILENAME);
             $newFilename = $originalFilename . '.' . $articleImageFile->guessExtension();
@@ -121,10 +123,18 @@ class IndexController extends AbstractController
             );
 
             $blog = $blogRepository->findOneBy(['slug' => $articleSlug]);
-
             $em = $doctrine->getManager();
-            $em->remove($blog);
-            $em->flush();
+
+            if ($blog) {
+                $RAW_QUERY = 'UPDATE blog 
+            SET slug = 0
+            WHERE `blog`.`slug` = :articleSlug';
+
+                $statement = $em->getConnection()->prepare($RAW_QUERY);
+                $statement->bindValue('articleSlug', $articleSlug);
+                $statement->executeStatement();
+
+            }
 
             $blogs->setTitle($articleTitle);
             $blogs->setDate($articleDate);
@@ -145,7 +155,7 @@ class IndexController extends AbstractController
         ]);
     }
 
-    #[Route('/admin/deleted-{id}', name: 'delete_contact')]
+    #[Route('/admin/deleted/{id}', name: 'delete_contact')]
     function deleteQuery(ManagerRegistry $doctrine, $id)
     {
         $contactRepository = $doctrine->getManager()->getRepository(Contacts::class);
@@ -158,12 +168,23 @@ class IndexController extends AbstractController
         return $this->redirectToRoute('admin');
     }
 
-    #[Route('/blog-post-{slug}', name: 'blog_posts')]
+    #[Route('/blog-post/{slug}', name: 'blog_posts')]
     function blogPosts(ManagerRegistry $doctrine, $slug)
     {
         $blogRepository = $doctrine->getManager()->getRepository(Blog::class);
         $blogs = $blogRepository->findOneBy(['slug' => $slug]);
         return $this->render('newsBlog.html.twig', [
+            'blogs' => $blogs
+        ]);
+    }
+
+    #[Route('/company-news', name: 'company_news')]
+
+    function companyNews(ManagerRegistry $doctrine)
+    {
+        $blogRepository = $doctrine->getManager()->getRepository(Blog::class);
+        $blogs = $blogRepository->findAll();
+        return $this->render('company-news.html.twig', [
             'blogs' => $blogs
         ]);
     }
