@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use ArrayObject;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
@@ -30,8 +31,9 @@ class IndexController extends AbstractController
         $blogRepository = $doctrine->getManager()->getRepository(Blog::class);
         $blogs = $blogRepository->findAll();
 
-        // echo "<pre>";
-        // var_dump($blogs);
+        usort($blogs, function ($a, $b) {
+            return $a->getSlug() > $b->getSlug();
+        });
 
         if ($request->isMethod('POST')) {
 
