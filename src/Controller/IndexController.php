@@ -21,7 +21,7 @@ class IndexController extends AbstractController
     #[Route('/', name: 'home')]
     function homepage(ManagerRegistry $doctrine)
     {
-        // test
+
         $request = Request::createFromGlobals();
         $clientName = $request->request->get('client-name');
         $clientEmail = $request->request->get('client-email');
