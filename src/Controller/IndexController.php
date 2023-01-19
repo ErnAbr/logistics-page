@@ -30,8 +30,9 @@ class IndexController extends AbstractController
         $blogRepository = $doctrine->getManager()->getRepository(Blog::class);
         $blogs = $blogRepository->findAll();
 
-        // echo "<pre>";
-        // var_dump($blogs);
+        usort($blogs, function ($a, $b) {
+            return $a->getSlug() > $b->getSlug();
+        });
 
         if ($request->isMethod('POST')) {
 
