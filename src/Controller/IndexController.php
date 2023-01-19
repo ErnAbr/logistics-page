@@ -7,8 +7,13 @@ use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Persistence\ManagerRegistry;
 use App\Entity\Contacts;
 use App\Entity\Blog;
-use Symfony\Component\Routing\Annotation\Route;
 
+use Doctrine\ORM\Query\ResultSetMapping;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use App\Classes\BlogSorter;
+use Symfony\Component\String\Slugger\SluggerInterface;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class IndexController extends AbstractController
 {
