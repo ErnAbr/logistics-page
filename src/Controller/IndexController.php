@@ -93,6 +93,12 @@ class IndexController extends AbstractController
         return $this->render('careers.html.twig');
     }
 
+    #[Route('/admin/admin-test', name: 'test')]
+    function adminTest()
+    {
+        return $this->render('adminTest.html.twig');
+    }
+
     #[Route('/admin', name: 'admin')]
     function admin(ManagerRegistry $doctrine)
     {

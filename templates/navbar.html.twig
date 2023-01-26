@@ -27,16 +27,6 @@
             >Home</a
           >
         </li>
-        {% if app.user and app.user.email == 'admin@admin' %}
-        <li class="nav-item">
-          <a
-            class="nav-link mx-1"
-            aria-current="page"
-            href="{{ path('admin') }}"
-            >Admin</a
-          >
-        </li>
-        {% endif %}
         <li class="nav-item">
           <a
             class="nav-link mx-1"
@@ -61,15 +51,25 @@
             >Karjera</a
           >
         </li>
+        {% if app.user and app.user.email == 'admin@admin' %}
+        <li class="nav-item">
+          <a
+            class="nav-link mx-1"
+            aria-current="page"
+            href="{{ path('admin') }}"
+            >Admin</a
+          >
+        </li>
+        {% endif %}
         <li class="nav-item">
           <a
             class="nav-link"
             aria-current="page"
-            href="{{ app.user ? 'logout' : NULL }}"
+            href="{{ path('app_logout') }}"
             >{{ app.user ? "Logout" : NULL }}</a
           >
         </li>
-        <li class="nav-item mx-1 dropdown">
+        <li class="nav-item dropdown">
           <a
             class="nav-link dropdown-toggle"
             href="#"
